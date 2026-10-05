@@ -1,0 +1,6 @@
+StudyPlanner – planer nauki dla studenta
+
+StudyPlanner to aplikacja internetowa służąca do organizowania nauki.
+Planowane funkcje obejmują zarządzanie przedmiotami i powiązanymi zadaniami,
+określanie terminów, zmianę statusu oraz filtrowanie zadań. Projekt będzie
+realizowany etapami: część I w Servlet + JSP + JSTL, część II w Spring Boot + Thymeleaf.

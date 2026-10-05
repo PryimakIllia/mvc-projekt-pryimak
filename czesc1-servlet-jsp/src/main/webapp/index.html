@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyPlanner — planer nauki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="card">
+    <p class="eyebrow">StudyPlanner · część I</p>
+    <h1>Zaplanuj swoją naukę</h1>
+    <p>Twój przyszły planer przedmiotów, zadań i terminów.</p>
+    <p>Na tym etapie sprawdzamy stronę startową oraz obsługę żądań GET i POST.</p>
+
+    <section aria-labelledby="get-heading">
+        <h2 id="get-heading">Poznaj StudyPlanner</h2>
+        <p>Otwórz stronę powitalną przez żądanie GET.</p>
+        <a class="button secondary" href="start">Otwórz stronę powitalną</a>
+    </section>
+
+    <section aria-labelledby="post-heading">
+        <h2 id="post-heading">Jak masz na imię?</h2>
+        <form action="start" method="post" accept-charset="UTF-8">
+            <label for="name">Twoje imię</label>
+            <input id="name" type="text" name="name" required maxlength="80"
+                   autocomplete="given-name" placeholder="Np. Łukasz">
+            <button type="submit">Wyślij formularz</button>
+        </form>
+    </section>
+    <p class="note">Formularz służy do powitania. Dane nie są zapisywane.</p>
+</main>
+</body>
+</html>

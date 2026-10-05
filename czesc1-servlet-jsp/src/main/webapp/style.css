@@ -1,0 +1,17 @@
+:root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; color: #17233b; background: #f0f4f9; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 44px 20px; }
+.card { max-width: 700px; margin: 0 auto; padding: 36px; background: white; border: 1px solid #dce4ef; border-radius: 18px; }
+.eyebrow { margin-top: 0; color: #3857a6; font-size: 14px; font-weight: 700; }
+h1 { font-size: clamp(28px, 5vw, 38px); line-height: 1.15; margin: 16px 0; }
+h2 { font-size: 21px; }
+p { line-height: 1.65; }
+section { margin-top: 30px; padding-top: 14px; border-top: 1px solid #dce4ef; }
+label { display: block; margin-bottom: 8px; font-weight: 600; }
+input { display: block; width: 100%; padding: 12px; margin-bottom: 14px; border: 1px solid #a8b5ca; border-radius: 8px; font: inherit; }
+.button, button { display: inline-block; padding: 12px 18px; background: #284daf; color: white; border: 1px solid #284daf; border-radius: 8px; text-decoration: none; font: inherit; font-weight: 600; cursor: pointer; }
+.secondary { background: #edf2fc; color: #284daf; }
+.button:hover, button:hover { background: #17377e; color: white; }
+:focus-visible { outline: 3px solid #c57800; outline-offset: 3px; }
+.method, .note { color: #55647a; font-size: 14px; }
+@media (max-width: 480px) { body { padding: 16px; } .card { padding: 22px; } }
