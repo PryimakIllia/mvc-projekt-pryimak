@@ -32,8 +32,8 @@ Generowanie HTML w servlecie odpowiada zakresowi pierwszych zajęć.
 
 ## Wymagania
 
-- JDK 21.x
-- Maven dołączony do IntelliJ IDEA lub zewnętrzny Maven 3.9.x.
+- JDK 21.0.8
+- Maven dołączony do IntelliJ IDEA lub zewnętrzny Maven 3.9.9
 - Apache Tomcat 10.1; użyta wersja: 10.1.60.
 - Git i konto GitHub.
 - Dostęp do internetu przy pierwszym pobieraniu zależności Maven.
