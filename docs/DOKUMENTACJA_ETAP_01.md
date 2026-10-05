@@ -45,7 +45,7 @@ ustalone na podstawie instrukcji następnych zajęć.
 | Technologia | Wersja lub status | Zastosowanie |
 |---|---|---|
 | JDK | 21; pełny numer wersji 21.0.8 | Kompilacja i uruchamianie aplikacji |
-| Maven | Maven dołączony do IntelliJ IDEA; numer wersji 10.1.60| Zarządzanie zależnościami i budowanie WAR |
+| Maven | Maven dołączony do IntelliJ IDEA; numer wersji 3.9.9| Zarządzanie zależnościami i budowanie WAR |
 | Apache Tomcat | 10.1.60 | Uruchomienie servletu |
 | IntelliJ IDEA | Edycja i numer wersji 2025.2.3| Edytor i środowisko pracy |
 | Git | Numer wersji 2.55.0.windows.5 | Historia zmian |
