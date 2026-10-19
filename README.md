@@ -101,3 +101,20 @@ Sprawdzono następujące scenariusze:
 
 Planowane funkcje: lista przedmiotów, zadania z terminem, zmiana statusu,
 edycja, usuwanie oraz filtrowanie. Szczegóły będą dostosowane do instrukcji kolejnych zajęć.
+
+## Etap 2
+
+Dodano formularz zadania z polami: nazwa, przedmiot i czas wykonania w minutach.
+Zaimplementowano walidację po stronie serwera, zachowanie danych przy błędach
+oraz Post/Redirect/Get. Formularz nie zapisuje jeszcze danych na stałe.
+
+Dodano także servlet informacyjny, demonstrację cyklu życia servletu
+oraz przykład forward. Testy ręczne zakończyły się pomyślnie.
+
+- Menu etapu: http://localhost:8090/studyplanner/etap02.html
+- Formularz: http://localhost:8090/studyplanner/tasks/add
+- Informacje o żądaniu: http://localhost:8090/studyplanner/info
+- Cykl życia: http://localhost:8090/studyplanner/lifecycle
+- Forward: http://localhost:8090/studyplanner/forward-demo
+
+Dokumentacja etapu: docs/DOKUMENTACJA_ETAP_02.md.
