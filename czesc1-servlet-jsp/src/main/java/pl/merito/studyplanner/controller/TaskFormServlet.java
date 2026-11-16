@@ -1,87 +1,75 @@
 package pl.merito.studyplanner.controller;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pl.merito.studyplanner.util.HtmlUtil;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @WebServlet("/tasks/add")
 public class TaskFormServlet extends HttpServlet {
+    private static final String VIEW = "/WEB-INF/views/tasks/form.jsp";
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        renderForm(req, resp, List.of(), "", "", "");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.getRequestDispatcher(VIEW).forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        // Oryginalne wartości zachowujemy, aby odtworzyć formularz po błędzie.
-        String title = value(req.getParameter("title"));
-        String subject = value(req.getParameter("subject"));
-        String minutes = value(req.getParameter("estimatedMinutes"));
-        List<String> errors = new ArrayList<>();
-
-        // Walidacja odbywa się na serwerze, także przy pominięciu przeglądarki.
-        if (title.isBlank()) errors.add("Nazwa zadania jest wymagana.");
-        else if (title.strip().length() > 120) errors.add("Nazwa zadania może mieć maksymalnie 120 znaków.");
-        if (subject.isBlank()) errors.add("Przedmiot jest wymagany.");
-        else if (subject.strip().length() > 80) errors.add("Przedmiot może mieć maksymalnie 80 znaków.");
-        try {
-            int duration = Integer.parseInt(minutes.strip());
-            if (duration < 1 || duration > 1440)
-                errors.add("Czas wykonania musi mieścić się w zakresie 1–1440 minut.");
-        } catch (NumberFormatException e) {
-            errors.add("Czas wykonania musi być liczbą całkowitą.");
-        }
-
+        String title = clean(req.getParameter("title"));
+        String subject = clean(req.getParameter("subject"));
+        String minutes = clean(req.getParameter("estimatedMinutes"));
+        Map<String, String> errors = validate(title, subject, minutes);
         if (!errors.isEmpty()) {
+            req.setAttribute("errors", errors);
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            renderForm(req, resp, errors, title, subject, minutes);
+            req.getRequestDispatcher(VIEW).forward(req, resp);
             return;
         }
 
-        // Etap 2 demonstruje obsługę formularza. Nie zapisujemy jeszcze danych w bazie.
-        // POST -> 302 -> GET: odświeżenie potwierdzenia nie ponawia formularza.
-        String encodedTitle = URLEncoder.encode(title.strip(), StandardCharsets.UTF_8);
-        resp.sendRedirect(req.getContextPath() + "/tasks/added?title=" + encodedTitle);
-        return;
-    }
-
-    private String value(String text) {
-        return text == null ? "" : text;
-    }
-
-    private void renderForm(HttpServletRequest req, HttpServletResponse resp,
-                            List<String> errors, String title, String subject,
-                            String minutes) throws IOException {
-        PrintWriter out = HtmlUtil.begin(req, resp, "Dodaj zadanie");
-        if (!errors.isEmpty()) {
-            out.println("<div class='errors' role='alert'><h2>Popraw dane</h2><ul>");
-            for (String error : errors) out.println("<li>" + HtmlUtil.escape(error) + "</li>");
-            out.println("</ul></div>");
+        // Potwierdzenie i licznik należą do sesji, a nie do bazy danych.
+        HttpSession session = req.getSession();
+        synchronized (session) {
+            Integer count = (Integer) session.getAttribute("addedCount");
+            session.setAttribute("lastTitle", title);
+            session.setAttribute("addedCount", count == null ? 1 : count + 1);
         }
-        out.println("<p>Podaj nazwę zadania, przedmiot i przewidywany czas wykonania.</p>");
-        out.println("<form method='post' accept-charset='UTF-8' action='"
-                + HtmlUtil.escape(req.getContextPath() + "/tasks/add") + "'>");
-        field(out, "title", "Nazwa zadania", title);
-        field(out, "subject", "Przedmiot", subject);
-        field(out, "estimatedMinutes", "Czas wykonania w minutach (1–1440)", minutes);
-        out.println("<button type='submit'>Zatwierdź zadanie</button></form>");
-        out.println("<p class='note'>Etap 2: sprawdzamy formularz i przekierowanie. Dane nie są jeszcze zapisywane.</p>");
-        HtmlUtil.end(req, out);
+        resp.sendRedirect(req.getContextPath() + "/tasks/added");
     }
 
-    private void field(PrintWriter out, String name, String label, String value) {
-        // type=text celowo pozwala sprawdzić walidację serwera także dla np. abc.
-        out.println("<label for='" + name + "'>" + HtmlUtil.escape(label) + "</label>");
-        out.println("<input type='text' id='" + name + "' name='" + name
-                + "' value='" + HtmlUtil.escape(value) + "'>");
+    private static String clean(String value) {
+        return value == null ? "" : value.strip();
+    }
+
+    private static Map<String, String> validate(String title, String subject, String minutes) {
+        Map<String, String> errors = new LinkedHashMap<>();
+        if (title.isEmpty()) {
+            errors.put("title", "Nazwa zadania jest wymagana.");
+        } else if (title.length() > 120) {
+            errors.put("title", "Nazwa zadania może mieć maksymalnie 120 znaków.");
+        }
+        if (subject.isEmpty()) {
+            errors.put("subject", "Przedmiot jest wymagany.");
+        } else if (subject.length() > 80) {
+            errors.put("subject", "Przedmiot może mieć maksymalnie 80 znaków.");
+        }
+        try {
+            int duration = Integer.parseInt(minutes);
+            if (duration < 1 || duration > 1440) {
+                errors.put("estimatedMinutes", "Czas wykonania musi mieścić się w zakresie 1–1440 minut.");
+            }
+        } catch (NumberFormatException e) {
+            errors.put("estimatedMinutes", "Czas wykonania musi być liczbą całkowitą.");
+        }
+        return errors;
     }
 }
