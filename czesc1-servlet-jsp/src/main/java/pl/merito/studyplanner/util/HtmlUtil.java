@@ -22,7 +22,7 @@ public final class HtmlUtil {
         out.println("<!DOCTYPE html><html lang='pl'><head><meta charset='UTF-8'>");
         out.println("<meta name='viewport' content='width=device-width, initial-scale=1'>");
         out.println("<title>" + escape(title) + " — StudyPlanner</title>");
-        out.println("<link rel='stylesheet' href='" + escape(req.getContextPath() + "/style.css") + "'>");
+        out.println("<link rel='stylesheet' href='" + escape(req.getContextPath() + "/css/style.css") + "'>");
         out.println("<style>.errors{color:#a51d20} code{overflow-wrap:anywhere} li{margin-bottom:8px}</style>");
         out.println("</head><body><main class='card'><p class='eyebrow'>StudyPlanner · etap 2</p>");
         out.println("<h1>" + escape(title) + "</h1>");
@@ -30,7 +30,7 @@ public final class HtmlUtil {
     }
 
     public static void end(HttpServletRequest req, PrintWriter out) {
-        out.println("<p><a href='" + escape(req.getContextPath() + "/index.html")
+        out.println("<p><a href='" + escape(req.getContextPath() + "/")
                 + "'>Strona główna</a></p></main></body></html>");
     }
 }

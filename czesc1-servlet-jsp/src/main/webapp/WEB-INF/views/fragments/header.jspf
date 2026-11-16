@@ -1,0 +1,23 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%-- Wspólny nagłówek oraz adresy niezależne od kontekstu wdrożenia. --%>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StudyPlanner</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="shell masthead">
+        <a class="brand" href="${pageContext.request.contextPath}/">StudyPlanner</a>
+        <nav aria-label="Menu główne">
+            <a href="${pageContext.request.contextPath}/">Start</a>
+            <a href="${pageContext.request.contextPath}/tasks/add">Dodaj zadanie</a>
+            <a href="${pageContext.request.contextPath}/info">Informacje o żądaniu</a>
+        </nav>
+    </div>
+</header>
+<main class="shell">

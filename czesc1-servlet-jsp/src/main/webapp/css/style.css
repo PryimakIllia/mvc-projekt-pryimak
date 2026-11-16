@@ -1,0 +1,41 @@
+:root {
+    color-scheme: light;
+    --ink: #18243a;
+    --muted: #53657b;
+    --primary: #2548a3;
+    --border: #d9e3f0;
+    font-family: system-ui, sans-serif;
+    color: var(--ink);
+    background: #f1f5fa;
+}
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.5; }
+.shell { max-width: 52rem; margin-inline: auto; padding-inline: 1.25rem; }
+.site-header { background: #192d51; color: white; }
+.masthead { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: .75rem; padding-block: 1rem; }
+.brand { font-size: 1.2rem; font-weight: 750; }
+.site-header a { color: white; text-decoration: none; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+nav a:hover, nav a:focus-visible { text-decoration: underline; }
+main { padding-block: 1.55rem .5rem; }
+.card { background: white; border: 1px solid var(--border); border-radius: .9rem; padding: 1.6rem 1.8rem; margin-bottom: .85rem; overflow-wrap: anywhere; }
+body > main.card { max-width: 52rem; margin: 1.5rem auto; }
+h1, h2 { line-height: 1.2; margin: 0 0 .55rem; }
+h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+h2 { font-size: 1.28rem; }
+p { margin: .5rem 0 .8rem; }
+.eyebrow { margin: 0 0 .35rem; color: var(--primary); font-size: .8rem; font-weight: 750; }
+.intro, .hint, .site-footer { color: var(--muted); }
+.field { margin-bottom: .8rem; }
+label { display: block; font-weight: 650; margin-bottom: .22rem; }
+input { display: block; width: 100%; max-width: 36rem; border: 1px solid #899aaf; border-radius: .42rem; padding: .46rem .65rem; font: inherit; color: inherit; background: white; }
+[aria-invalid="true"] { border-color: #a51d20; }
+.error, .alert { color: #971b26; }
+.error, .hint { display: block; font-size: .88rem; margin-top: .15rem; }
+.error:empty { display: none; }
+.alert { background: #fff1f2; border-left: 3px solid #a51d20; padding: .45rem .65rem; font-weight: 650; }
+.button, button { display: inline-block; margin-top: .38rem; color: white; background: var(--primary); border: 0; border-radius: .45rem; padding: .54rem .86rem; font: inherit; font-weight: 650; text-decoration: none; cursor: pointer; }
+a { color: var(--primary); }
+:focus-visible { outline: 3px solid #3772d3; outline-offset: 2px; }
+.site-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; padding-bottom: 1.2rem; font-size: .86rem; }
+@media (max-width: 35rem) { .card { padding-inline: 1rem; } }

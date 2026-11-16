@@ -1,0 +1,10 @@
+<%@ page pageEncoding="UTF-8" %>
+</main>
+<footer class="shell site-footer">
+    <%-- Komentarz JSP jest usuwany podczas przetwarzania widoku. --%>
+    <!-- StudyPlanner: wspólna stopka -->
+    <span>StudyPlanner · Programowanie aplikacji internetowych MVC</span>
+    <span>Dodane w tej sesji: <strong>${empty sessionScope.addedCount ? 0 : sessionScope.addedCount}</strong></span>
+</footer>
+</body>
+</html>
